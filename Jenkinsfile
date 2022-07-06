@@ -9,7 +9,7 @@ pipeline {
                 git 'https://github.com/ehabdev/DEVOPSCourse1.git'
             }
         }
-        stage('run python') {
+        stage('run web_app') {
             steps {
                 script {
                     if (checkOs() == 'Windows') {
@@ -19,6 +19,18 @@ pipeline {
                     }
                 }
             }
+        }
+     stage('run rest_app') {
+            steps {
+                script {
+                    if (checkOs() == 'Windows') {
+                        bat  'start /min python rest_app.py'
+                    } else {
+                        sh 'python 1.py'
+                    }
+                }
+            }
+        
         }
     }
 }
