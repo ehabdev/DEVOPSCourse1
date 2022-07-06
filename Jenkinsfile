@@ -13,7 +13,7 @@ pipeline {
             steps {
                 script {
                     if (checkOs() == 'Windows') {
-                        bat  'start /min python web_app.py'
+                        bat  'start/min python web_app.py'
                     } else {
                         sh 'python 1.py'
                     }
@@ -24,7 +24,19 @@ pipeline {
             steps {
                 script {
                     if (checkOs() == 'Windows') {
-                        bat  'start /min python rest_app.py'
+                        bat  'start/min python rest_app.py'
+                    } else {
+                        sh 'python 1.py'
+                    }
+                }
+            }
+        
+        }
+    stage('run backend testing') {
+            steps {
+                script {
+                    if (checkOs() == 'Windows') {
+                        bat  ' python backend_testing_updated.py'
                     } else {
                         sh 'python 1.py'
                     }
