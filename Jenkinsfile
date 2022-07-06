@@ -36,7 +36,7 @@ pipeline {
             steps {
                 script {
                     if (checkOs() == 'Windows') {
-                        bat  ' python backend_testing_updated.py'
+                        bat  'python backend_testing_updated.py'
                     } else {
                         sh 'python 1.py'
                     }
