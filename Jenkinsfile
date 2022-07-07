@@ -55,7 +55,7 @@ pipeline {
             steps {
                 script {
                    
-                        bat  'python clean_envirnment.py'
+                        bat  'python clean_environment.py'
                 }
             }
         }
