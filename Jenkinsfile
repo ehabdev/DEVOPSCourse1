@@ -4,30 +4,24 @@ pipeline {
         stage('checkout') {
             steps {
                 script {
-                    properties([pipelineTriggers([pollSCM('* * * * *')])])
+                    properties([pipelineTriggers([pollSCM('30 * * * *')])])
                 }
                 git 'https://github.com/ehabdev/DEVOPSCourse1.git'
             }
         }
-        stage('run web_app') {
+        stage('run rest_app') {
             steps {
                 script {
-                    if (checkOs() == 'Windows') {
-                        bat  'start /min python web_app.py'
-                    } else {
-                        sh 'python 1.py'
-                    }
+                    
+                        bat  'start /min python rest_app.py'
                 }
             }
         }
-     stage('run rest_app') {
+     stage('run web_app') {
             steps {
                 script {
-                    if (checkOs() == 'Windows') {
-                        bat  'start /min python rest_app.py'
-                    } else {
-                        sh 'python 1.py'
-                    }
+                    
+                        bat  'start /min python web_app.py'
                 }
             }
         
@@ -35,29 +29,36 @@ pipeline {
     stage('run backend testing') {
             steps {
                 script {
-                    if (checkOs() == 'Windows') {
-                        bat  'python backend_testing_upd.py'
-                    } else {
-                        sh 'python 1.py'
-                    }
+                   
+                        bat  'python backend_testing.py'
                 }
             }
         
         }
-    }
-}
-
-def checkOs(){
-    if (isUnix()) {
-        def uname = sh script: 'uname', returnStdout: true
-        if (uname.startsWith("Darwin")) {
-            return "Macos"
+    stage('run frontend testing') {
+            steps {
+                script {
+                   
+                        bat  'python frontend_testing.py'
+                }
+            }
         }
-        else {
-            return "Linux"
+     stage('run combined testing') {
+            steps {
+                script {
+                   
+                        bat  'python combined_testing.py'
+                }
+            }
         }
-    }
-    else {
-        return "Windows"
+    stage('run clean environment') {
+            steps {
+                script {
+                   
+                        bat  'python clean_envirnment.py'
+                }
+            }
+        }
+    
     }
 }
