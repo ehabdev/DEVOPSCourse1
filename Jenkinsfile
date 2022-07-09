@@ -5,6 +5,7 @@ pipeline {
             steps {
                 script {
                     properties([pipelineTriggers([pollSCM('30 * * * *')])])
+                    properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '5', numToKeepStr: '20'))])
                 }
                 git 'https://github.com/ehabdev/DEVOPSCourse1.git'
             }
