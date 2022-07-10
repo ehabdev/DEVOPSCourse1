@@ -1,4 +1,4 @@
-# DEVOPSCourse1
+#Project First Part
 
 REST API (module name: rest_app.py):
 The REST API gateway will be: 127.0.0.1:5000/users/<USER_ID>
