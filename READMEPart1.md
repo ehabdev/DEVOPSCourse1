@@ -38,7 +38,7 @@ For each request method I defined a sperate methods this methods will be called 
 
 Web interface (module name: web_app.py):
 1.	The web interface will return the user name of a given user id stored inside users table
-2.	It will user main method called : get_user_name(user_id)- it will first connect to the DB and then run select statement to check if the user id is exist – in no exist it will return the error message : return "<H1 id='error'>" no such user: + user_id + "</H1>" 
+2.	It will user main method called : get_user_name(user_id)- it will first connect to the DB and then run select statement to check if the user id is exist – in no exist it will return the error message : return  no such user: + user_id
 
 
 Testing  : 
