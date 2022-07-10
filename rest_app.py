@@ -1,7 +1,7 @@
 import requests
 import os
 import signal
-from flask import Flask, request,json
+from flask import Flask, request,json,render_template
 import  pymysql
 import datetime
 import db_connector
@@ -62,5 +62,8 @@ def stop_server():
     except Exception as e:
         print(e)
 
+@app.errorhandler(404)
+def page_not_found(error):
+    return render_template("404.html"),404
 
 app.run(host='127.0.0.1', debug=True, port=5000)
