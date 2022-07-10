@@ -1,0 +1,69 @@
+pipeline {
+    agent any
+	parameters {
+       choice( name: 'TestingType',choices: ['1', '2', '3'], description: '''In case the int value is 1 – only frontend_testing
+        In case the int value is 2 – only backend_testing
+        In case the int value is 3 – only combined_testing''',)
+    }
+    stages {
+        stage('checkout') {
+            steps {
+                script {
+                   
+                    properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '5', numToKeepStr: '20'))])
+                }
+                git 'https://github.com/ehabdev/DEVOPSCourse1.git'
+            }
+        }
+        stage('run rest_app') {
+            steps {
+                script {
+                    
+                        bat  'start /min python rest_app.py'
+                }
+            }
+        }
+     stage('run web_app') {
+            steps {
+                script {
+                    
+                        bat  'start /min python web_app.py'
+                }
+            }
+        
+        }
+    stage('Choosing Testing Type') {
+            steps {
+                script {
+                    switch(params.TestingType){
+                        case '1' :
+                            echo 'Running backend_testing '
+							bat  'python backend_testing.py'
+                            break
+                        case '2' :
+                             echo 'Running frontend_testing'
+							 bat  'python frontend_testing.py'
+							 
+                            break
+                        default: 
+						      echo 'Running combined_testing'
+							  bat  'python combined_testing.py'
+                             break     
+                    }
+                }
+            } 
+        }			
+            
+    stage('run clean environment') {
+            steps {
+                script {
+                   
+                        bat  'python clean_environment.py'
+                }
+            }
+        }
+    
+    }
+	
+  
+}
