@@ -1,5 +1,0 @@
-print(123)
-print("this is testing ")
-print("new branch")
-print("new merge")
-print ("new getgit init hub")
