@@ -1,7 +1,7 @@
 import os
 import signal
 import requests
-from flask import Flask, request,json
+from flask import Flask, request,json,render_template
 import  pymysql
 
 
@@ -38,6 +38,13 @@ def stop_server():
         return {'status': 'ok','frontend server' :'stopped'} ,200
     except Exception as e:
         print(e)
+
+
+
+
+@app.errorhandler(404)
+def page_not_found(error):
+    return render_template("404.html"),404
 
 app.run(host='127.0.0.1', debug=True, port=5001)
 
