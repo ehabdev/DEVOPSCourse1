@@ -1,9 +1,13 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+import socket
 
 def verifyfront(userid):
+    hostname = socket.gethostname()
+    ipaddr = socket.gethostbyname(hostname)
     url='http://127.0.0.1:5000/users/'+str(userid)
-    urlremote ='http://172.28.239.17:5000//users/' + str(userid)
+    urlremote ='http://'+str(ipaddr)+':5000//users/' + str(userid)
+    print(urlremote)
     path='C:\\Users\\idavos\\Desktop\\Devopscourse\\chromedriver.exe'
 
 
