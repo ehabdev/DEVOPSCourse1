@@ -1,4 +1,4 @@
-FROM python:3.7-alpine3.15
+FROM python:3.7-alpine
 ADD . /run
 WORKDIR /run
 RUN pip install flask
