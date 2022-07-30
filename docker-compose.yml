@@ -5,6 +5,9 @@ services:
     build: .
     ports:
      - "5000:5000"
-  db:
+  myservice::
     image: "restappimage:${IMAGE_TAG}"
+    
+     
+  
 
