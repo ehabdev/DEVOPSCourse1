@@ -6,7 +6,7 @@ services:
     ports:
      - "5000:5000"
   myservice:
-    image: "restappimage:${IMAGE_TAG}"
+    image:"restappimage:${IMAGE_TAG}"
     
      
   
