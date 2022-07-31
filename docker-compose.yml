@@ -1,9 +1,0 @@
-version: '3'
-services:
-  web:
-    build: .
-    ports:
-     - "5000:5000"
-  myimage:
-    image: "restapp_image:${IMAGE_TAG}"
- 
