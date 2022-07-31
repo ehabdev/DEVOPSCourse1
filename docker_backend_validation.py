@@ -5,9 +5,9 @@ import socket
 def verifyfront(userid):
     hostname = socket.gethostname()
     ipaddr = socket.gethostbyname(hostname)
+    urltemp='http://172.28.238.164:5000'
     url='http://127.0.0.1:5000/users/'+str(userid)
-    urlremote ='http://'+str(ipaddr)+':5000//users/' + str(userid)
-    print(urlremote)
+    urlremote =urltemp+'//users/' + str(userid)
     path='C:\\Users\\idavos\\Desktop\\Devopscourse\\chromedriver.exe'
 
 
