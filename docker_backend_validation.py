@@ -7,7 +7,7 @@ def verifyfront(userid):
     ipaddr = socket.gethostbyname(hostname)
     url='http://127.0.0.1:5000/users/'+str(userid)
     urlremote ='http://'+ipaddr+':5000/users/'+str(userid)
-    print (urlremote)
+
     path='C:\\Users\\idavos\\Desktop\\Devopscourse\\chromedriver.exe'
 
 
@@ -24,9 +24,6 @@ def verifyfront(userid):
 
         pslocal=driver.page_source
         psremote=driverremote.page_source
-
-        print(pslocal)
-        print(psremote)
 
 
 
