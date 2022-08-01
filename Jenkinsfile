@@ -1,7 +1,14 @@
 pipeline {
+    environment {
+        dockerImage =''
+        registry ="ehabdevopscourse/restapp_image"
+        registryCredential = "Docker_ID"
+        
+    }
+    
     agent any
     stages {
-        stage('checkout') {
+    stage('checkout') {
             steps {
                 script {
                     properties([pipelineTriggers([pollSCM('30 * * * *')])])
@@ -10,7 +17,8 @@ pipeline {
                 git 'https://github.com/ehabdev/DEVOPSCourse1.git'
             }
         }
-        stage('run rest_app') {
+   
+    stage('run rest_app') {
             steps {
                 script {
                     
@@ -18,15 +26,7 @@ pipeline {
                 }
             }
         }
-     stage('run web_app') {
-            steps {
-                script {
-                    
-                        bat  'start /min python web_app.py'
-                }
-            }
-        
-        }
+		
     stage('run backend testing') {
             steps {
                 script {
@@ -36,22 +36,7 @@ pipeline {
             }
         
         }
-    stage('run frontend testing') {
-            steps {
-                script {
-                   
-                        bat  'python frontend_testing.py'
-                }
-            }
-        }
-     stage('run combined testing') {
-            steps {
-                script {
-                   
-                        bat  'python combined_testing.py'
-                }
-            }
-        }
+
     stage('run clean environment') {
             steps {
                 script {
@@ -59,7 +44,70 @@ pipeline {
                         bat  'python clean_environment.py'
                 }
             }
+        }   
+    stage ('Build Docker Image')  
+        {
+            steps{
+                script{
+                      dockerImage = docker.build registry+ ":$BUILD_NUMBER"
+                }
+            }
         }
-    
+    stage ('Uploading Image')
+        {
+            steps{
+                script{
+                    
+                    docker.withRegistry( '', registryCredential ) {
+                    dockerImage.push()
+            }
+                    
+                
+            }
+                
+            }
+        }
+        
+    stage('set version') {
+	
+        steps {
+                bat "echo IMAGE_TAG=${BUILD_NUMBER}>.env"
+                 }
+            }
+        
+   
+        
+    stage('docker-compose up') {
+        steps {
+                script {
+                    
+                    bat  'docker-compose up -d --wait '
+                        
+                }
+            }
+            }
+            
+        stage('Test dockerized app') {
+            steps {
+                script {
+                    
+                        bat  'start /min python docker_backend_testing.py '
+                        bat  'python docker_backend_validation.py'
+                }
+            }
+            
+        }
     }
+    post {  
+          
+         always {  
+             
+                      bat  'docker-compose down'
+                      bat  'docker rmi  ehabdevopscourse/restapp_image:'+ "${BUILD_NUMBER}" 
+                      
+             
+         }  
+        
+  
+}
 }
