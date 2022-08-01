@@ -1,0 +1,31 @@
+Project extension:
+
+Python code changes:
+docker_backend_testing.py : It will use the same methods for the REST_APP ,I choosed the get method and it will run under the IP 0.0.0.0 ,
+like app.run(host="0.0.0.0") will make the page accessible
+by going to http://[ip]:5000/ on any computer in  the network.
+ 
+Jenkins pipeline steps:
+1. Pull code from your Github repository holding your project, No changes 
+
+2. Run rest_app.py (backend), No changes
+
+3. Run backend_testing.py, No changes
+
+4. Run clean_environemnt.py, No changes
+
+5. Build Docker image – locally
+
+6. Push Docker image – to HUB
+5,6 was implemented by installing the Docker pipeline plug in and followed the same syntax to make it works .
+
+7. Set compose image version – setting the version inside the .env file for docker-compose, Jenkins file 
+
+8. Run docker-compose up -d , Jenkins file,docker-compose.yml
+
+9. Test dockerized app – using docker_backend_testing.py
+In addition to docker_backend_testing.py ,I created new python docker_backend_validation.py, it first will git my network local IP and concatenate 
+it to create a valid access to rest_app ,and issue another URL access to local host with the same userid -and after the reply I am comparing
+the page source to validate that I get the same reply . 
+
+10. Clean environment – will call docker-compose down and delete local image ,Jenkins file 
