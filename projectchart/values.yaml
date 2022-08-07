@@ -1,7 +1,7 @@
 replicaCount: 5
 
 image:
-  repository: ehabdevopscourse/restapp_image:${BUILD_NUMBER}
+  repository: ehabdevopscourse/restapp_image:51
   pullPolicy: Always
   tag: ""
 
