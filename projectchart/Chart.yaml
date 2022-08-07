@@ -4,4 +4,3 @@ description: A Helm chart for Kubernetes
 name: PyOnK8S
 type: application
 version: 0.1.0
-
