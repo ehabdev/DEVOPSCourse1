@@ -66,4 +66,5 @@ def stop_server():
 def page_not_found(error):
     return render_template("404.html"),404
 
-app.run(host='127.0.0.1', debug=True, port=5000)
+app.run(host='0.0.0.0')
+#app.run(host='127.0.0.1', debug=True, port=5000)
