@@ -7,6 +7,6 @@ spec:
     app: restapp-python3
   ports:
   - protocol: "TCP"
-    port: 6000
+    port: 5000
     targetPort: 5000
   type: {{ .Values.service.type }}
