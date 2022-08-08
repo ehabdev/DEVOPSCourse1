@@ -1,7 +1,7 @@
 replicaCount: 5
 
 image:
-  repository: ehabdevopscourse/restapp_image:50
+  repository: ehabdevopscourse/restapp_image:51
   pullPolicy: Always
   tag: ""
 

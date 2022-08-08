@@ -5,7 +5,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: hello-python3
+      app: restapp-python3
   replicas: {{ .Values.replicaCount }}
   template:
     metadata:
